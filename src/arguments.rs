@@ -1,4 +1,4 @@
-//! My newest Rust program needs a destription.
+//! My newest Rust program needs a description.
 use std::path;
 
 /// The main commands and flags.
