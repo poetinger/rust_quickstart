@@ -1,0 +1,7 @@
+[template]
+cargo_generate_version = "0.11.0"
+
+[placeholders]
+description = { type="string", prompt="Description for the crate?" }
+ask_for_errors = { type="bool", prompt="Do you want error handling?", default=true }
+ask_for_logging = { type="bool", prompt="Do you want logging?", default=true }

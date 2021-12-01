@@ -3,6 +3,7 @@ mod arguments;
 use structopt::StructOpt;
 use arguments::{Arguments, Subcommand};
 
+{% if ask_for_logging %}
 /// Setup the application environment.
 fn setup(verbose: u8) {
     // Make panics log to the logger.
@@ -21,18 +22,32 @@ fn setup(verbose: u8) {
         .init();
     log::trace!("Verbose logging enabled.");
 }
+{% endif %}
 
+{% if ask_for_errors %}
 fn main() -> Result<(), anyhow::Error> {
+{% else %}
+fn main() {
+{% endif %}
     // Capture command line arguments.
     let Arguments { subcommand, verbose, ..} = Arguments::from_args();
 
+    {% if ask_for_logging %}
     // Perform setup.
     setup(verbose);
+    {% endif %}
 
     match subcommand {
         Subcommand::Run => {
+            {% if ask_for_logging %}
             log::info!("Running...");
-            Ok(())
+            {% else %}
+            println!("Running...");
+            {% endif %}
         },
     }
+    {% if ask_for_errors %}
+
+    Ok(())
+    {% endif %}
 }
