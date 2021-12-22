@@ -20,7 +20,13 @@ jobs:
         profile: minimal
         toolchain: stable
     - uses: Swatinem/rust-cache@v1.3.0
-    - name: Build
-      run: cargo build --verbose --release
+    - name: Generate Repo
+      run: |
+        cd ..
+        cargo generate -p rust_quickstart -n test -d ask_for_logging=true -d ask_for_errors=true -d description="For github" -s    - name: Build
+    - name: Build Test
+      run: |
+        cd test
+        cargo build --verbose --release
     - name: Run tests
       run: cargo test --verbose
